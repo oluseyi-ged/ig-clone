@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     //code that runs
     db.collection("posts").onSnapshot((snapshot) => {
-      setPosts(snapshot.docs.map((doc) => doc.data()))
+      setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })))
     })
   }, []) //blank square bracket means code runs once when component loads
 
@@ -22,8 +22,9 @@ function App() {
           className="app__headerImage"
         />
       </div>
-      {posts.map((post) => (
+      {posts.map(({ id, post }) => (
         <Posts
+          key={id}
           username={post.username}
           caption={post.caption}
           imageUrl={post.imageUrl}
