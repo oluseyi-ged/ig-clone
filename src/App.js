@@ -3,7 +3,7 @@ import Posts from "./Posts"
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <div className="app__header">
         <img
           src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
@@ -12,8 +12,8 @@ function App() {
         />
       </div>
       <Posts />
-      {/* Posts */}
-      {/* Posts */}
+      <Posts />
+      <Posts />
     </div>
   )
 }
