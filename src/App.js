@@ -1,21 +1,17 @@
+import { useState, useEffect } from "react"
 import "./App.css"
 import Posts from "./Posts"
+import { db } from "./firebase"
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      username: "royged",
-      caption: "it works, dope",
-      imageUrl:
-        "https://phantom-marca.unidadeditorial.es/97f79709c81f033874d0b10609cb29d7/resize/660/f/webp/assets/multimedia/imagenes/2021/07/15/16263805081910.jpg",
-    },
-    {
-      username: "royged",
-      caption: "it works, dope",
-      imageUrl:
-        "https://phantom-marca.unidadeditorial.es/97f79709c81f033874d0b10609cb29d7/resize/660/f/webp/assets/multimedia/imagenes/2021/07/15/16263805081910.jpg",
-    },
-  ])
+  const [posts, setPosts] = useState([])
+  //USEEFFECT runs a piece of code on a specific condition
+  useEffect(() => {
+    //code that runs
+    db.collection("posts").onSnapshot((snapshot) => {
+      setPosts(snapshot.docs.map((doc) => doc.data()))
+    })
+  }, []) //blank square bracket means code runs once when component loads
 
   return (
     <div className="app">
@@ -30,7 +26,7 @@ function App() {
         <Posts
           username={post.username}
           caption={post.caption}
-          imageUrl={imageUrl}
+          imageUrl={post.imageUrl}
         />
       ))}
     </div>
